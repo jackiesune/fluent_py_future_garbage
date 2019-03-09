@@ -1,7 +1,7 @@
 #desc_clock.py
 
 import time
-
+import functools
 def clock(func):
     """装饰器函数"""
     def inner(*args):
@@ -23,8 +23,8 @@ def funced(strs):
 #if __name__=="__main__":
 #    funced("I'm thinking")
 
-
-
+#记录相同参数的结果,避免重复运算
+@functools.lru_cache()
 @clock
 def fy(n):
     if n<2:
