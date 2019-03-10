@@ -12,6 +12,28 @@ def clock(func):
         return result
     return inner
 
+DEFAULT_FORMAT="the results:{} used time {}"
+
+def des_fac(fmt=DEFAULT_FORMAT):
+    """装饰器工厂函数"""
+    def des(func):
+        '''装饰器函数'''
+        def inner(*args):
+            t0=time.perf_counter()
+            result=func(*args)
+            t0=time.perf_counter()-t0
+            print(fmt.format(result,t0))
+            return result
+        return inner
+    return des
+
+@des_fac()
+def funced2(strs):
+    print(strs)
+    time.sleep(.124)
+    return 42
+
+
 
 @clock
 def funced(strs):
@@ -33,6 +55,6 @@ def fy(n):
         return fy(n-2) + fy(n-1)
 
 if __name__=="__main__":
-   fy(7)
+   funced2("now Thinking adout it")
 
 
